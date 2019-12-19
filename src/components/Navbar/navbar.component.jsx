@@ -5,10 +5,13 @@ import { connect } from "react-redux";
 import { auth } from "../../firebase/firebase.utils";
 import CartIcon from "../CartIcon/cartIcon.component";
 import CartDropdown from "../CartDropdown/cardDropdown.component";
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
 
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import "./navbar.styles.scss";
+import { createStructuredSelector } from "reselect";
 
 const Navbar = ({ currentUser, hidden }) => (
     <div className="header">
@@ -35,9 +38,9 @@ const Navbar = ({ currentUser, hidden }) => (
     </div>
 );
 
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-    currentUser,
-    hidden
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
 });
 
 export default connect(mapStateToProps)(Navbar);
